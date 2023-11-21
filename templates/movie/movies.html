@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% for movie in movies %}
+
+    <div class="container">
+        <h3>{{ movie.title }}</h3>
+        <div class="cardcontainer">
+            <div class="photo">
+                <img src="{{ movie.image.url }}">
+            </div>
+            <div class="content">
+                <p class="txt4">{{ movie.description }}</p>
+            </div>
+            <div class="footer">
+                <p><a class="waves-effect waves-light btn" href="#">Detail</a><a id="heart"></a>
+                    Rate {{ movie.rate }}
+                    Year {{ movie.year }}
+                </p>
+                <p class="txt3"><i class="far fa-clock"></i>updated {{ movie.updated_at }} </p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+{% endblock %}

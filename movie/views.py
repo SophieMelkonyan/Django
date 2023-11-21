@@ -1,8 +1,8 @@
 from django.shortcuts import render
 # from django.http import HttpResponse
+from movie.models import Movie
 
 
-def home(request):
-    print(dir(request))
-    return render(request, "home.html", {"name": "Hikaru",
-                                         "last_name": "Nakamura"})
+def movies(request):
+    all_movies = Movie.objects.filter(is_published=True)
+    return render(request, "movie/movies.html", {"movies": all_movies})
