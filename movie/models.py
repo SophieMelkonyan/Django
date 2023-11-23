@@ -15,5 +15,8 @@ class Movie(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def upper_title(self):
+        return self.title.upper()
+
     def __str__(self):
-        return self.title
+        return f"{self.title}_{self.year}"
