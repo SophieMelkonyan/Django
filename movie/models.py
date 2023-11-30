@@ -1,8 +1,8 @@
 from django.db import models
+from django.core.validators import MinValueValidator, MaxValueValidator
 
-
-def upload_movie_image(instance, filename):
-    return f"{instance.title}/{filename}"
+from helpers.upload_images import upload_movie_image
+from helpers.validators import check_letters
 
 
 class Category(models.Model):
@@ -13,10 +13,13 @@ class Category(models.Model):
 
 
 class Movie(models.Model):
-    title = models.CharField(max_length=150)
+    title = models.CharField(max_length=150, validators=[check_letters])
     description = models.TextField(blank=True, null=True)
     year = models.IntegerField(blank=True)
-    rate = models.FloatField(blank=True)
+    rate = models.FloatField(blank=True, validators=[
+        MinValueValidator(1),
+        MaxValueValidator(10)
+    ])
     image = models.ImageField(upload_to=upload_movie_image, null=True, blank=True)
 
     category = models.ForeignKey(Category, on_delete=models.PROTECT,

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+   {% for actor in actors %}
+        {% if forloop.counter|divisibleby:"2" %}
+            <hr>
+        {% endif %}
+        <div class="container">
+            <h3>{{ actor.first_name }} {{ actor.last_name }}</h3>
+            <div class="cardcontainer">
+                <div class="photo">
+                    <img src="{% if actor.image %}
+                                {{ actor.image.url }}
+                                {% else %}
+                                {% static "img/no_content.jpeg" %}
+                                {% endif %}" width="250">
+                </div>
+                <div class="content">
+                    {% autoescape off %}
+                        <p class="txt4">{{ actor.date_of_birth }}<br>
+                            {{ actor.average_movie_rate }}</p>
+                    {% endautoescape %}
+                </div>
+            <div class="footer">
+                <p><a class="waves-effect waves-light btn" href="{% url "actor_detail" actor.pk %}">Detail</a><a id="heart"></a>
+            </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% include "layouts/pagination.html" with page_obj=actors %}
+
+{% endblock %}

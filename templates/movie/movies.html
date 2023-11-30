@@ -2,6 +2,12 @@
 {% load static %}
 
 {% block content %}
+    <div class="container">
+        <form action="">
+            <input type="text" name="search">
+            <button type="submit">Search</button>
+        </form>
+    </div>
     {% for movie in movies %}
         {% if forloop.counter|divisibleby:"1" %}
             <hr>
@@ -23,7 +29,8 @@
                     {% endautoescape %}
                 </div>
                 <div class="footer">
-                    <p><a class="waves-effect waves-light btn" href="#">Detail</a><a id="heart"></a>
+                    <p><a class="waves-effect waves-light btn" href="{% url "movie_detail" movie.pk %}">Detail</a><a
+                            id="heart"></a>
                         Rate {{ movie.rate }}
                         Year {{ movie.year }}
                     </p>
@@ -32,18 +39,6 @@
             </div>
         </div>
     {% endfor %}
-    <div class="container">
-        <div class="pagination">
-            {% if movies.has_previous %}
-                <a href="?page={{ movies.previous_page_number }}">&laquo;</a>
-                <a href="?page={{ movies.previous_page_number }}">{{ movies.previous_page_number }}</a>
-            {% endif %}
-            <a href="#" class="active">{{ movies.number }}</a>
-            {% if movies.has_next %}
-                <a href="?page={{ movies.next_page_number }}" >{{ movies.next_page_number }}</a>
-                <a href="?page={{ movies.next_page_number }}">&raquo;</a>
-            {% endif %}
-        </div>
-    </div>
+    {% include "layouts/pagination.html" with page_obj=movies %}
     <br>
 {% endblock %}
