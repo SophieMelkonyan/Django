@@ -2,7 +2,6 @@ from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 
 from helpers.upload_images import upload_movie_image
-from helpers.validators import check_letters
 
 
 class Category(models.Model):
@@ -13,7 +12,7 @@ class Category(models.Model):
 
 
 class Movie(models.Model):
-    title = models.CharField(max_length=150, validators=[check_letters])
+    title = models.CharField(max_length=150)
     description = models.TextField(blank=True, null=True)
     year = models.IntegerField(blank=True)
     rate = models.FloatField(blank=True, validators=[

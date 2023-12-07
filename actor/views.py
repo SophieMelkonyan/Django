@@ -1,3 +1,5 @@
+import time
+
 from django.shortcuts import render, get_object_or_404
 from actor.models import Actor
 from django.core.paginator import Paginator
