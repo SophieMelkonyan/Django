@@ -4,6 +4,8 @@ from actor.models import Actor
 
 
 class ActorAdmin(admin.ModelAdmin):
+
+    search_fields = ["first_name", "last_name"]
     fields = ["first_name", "last_name",
               "date_of_birth", "average_movie_rate",
               "image", "age", "gender", "movie"]
